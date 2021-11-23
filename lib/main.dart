@@ -1,7 +1,5 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 
 void main() {
@@ -26,16 +24,18 @@ class MyCalculatorState extends State<MyCalculator> {
           title: Text("Convertidor de unidades"),
         ),
         body: Center(
-          child: TextField(onChanged: (text){
-            var rv = double.tryParse(text);
-            if(rv != null) {
-              setState((){
-                _numberForm = rv;
-              });
-            }
-          },),
-       // Text((_numberForm == null)? : _numberForm.toString())  
-      ),
+          child: TextField(
+              onChanged: (text) {
+                var rv = double.tryParse(text);
+                if (rv != null) {
+                  setState(() {
+                    _numberForm = rv;
+                  });
+                }
+              },
+              keyboardType: TextInputType.number,
+              decoration: const InputDecoration(hintText: "Ingrese la cantidad a convertir")),
+        ),
       ),
     );
   }
