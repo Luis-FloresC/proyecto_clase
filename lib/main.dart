@@ -108,7 +108,11 @@ class MyCalculatorState extends State<MyCalculator> {
                     onConvertedMeasureChanged(value.toString());
                   },
                 ),
-                ElevatedButton(onPressed: () {convert();}, child: Text("Convertir")),
+                ElevatedButton(
+                    onPressed: () {
+                      convert();
+                    },
+                    child: Text("Convertir")),
                 spacer,
                 Text(
                   _resultMessage,
@@ -162,19 +166,21 @@ class MyCalculatorState extends State<MyCalculator> {
       '7': [0, 0, 453.592, 0.453592, 0, 0, 1, 16],
     };
 
-    int? nFrom =  mesuares[_startMeasure];
-    int? nTo =  mesuares[_convertedMeasure];
-    double multiplier = formulas[nFrom.toString()][nTo];
-    _result = _numberForm * multiplier;
-    setState(() {
-      if(_result == 0)
-      {
-        _resultMessage = "No se puede realizar la conversion";
-      }
-      else
-      {
-        _resultMessage = "${_numberForm} ${_startMeasure} son ${_result} ${_convertedMeasure}";
-      }
-    });
+    try {
+      int? nFrom = mesuares[_startMeasure];
+      int? nTo = mesuares[_convertedMeasure];
+      double multiplier = formulas[nFrom.toString()][nTo];
+      _result = _numberForm * multiplier;
+      setState(() {
+        if (_result == 0) {
+          _resultMessage = "No se puede realizar la conversion";
+        } else {
+          _resultMessage =
+              "${_numberForm} ${_startMeasure} son ${_result} ${_convertedMeasure}";
+        }
+      });
+    } catch (e) {
+      _resultMessage = e.toString();
+    }
   }
 }
